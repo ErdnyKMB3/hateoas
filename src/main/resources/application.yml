@@ -1,0 +1,81 @@
+server:
+  port: 9917
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: postgres
+    password: postgres
+  h2:
+    console:
+      enabled: true
+  profiles:
+    active: DEV
+  jooq:
+    sql-dialect: org.hibernate.dialect.H2Dialect
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+logging:
+  level:
+    root: INFO
+    com.backbase: INFO
+    org.springframework: INFO
+    liquibase: INFO
+
+
+#Disable security
+backbase:
+  security:
+    public:
+      paths: /*,/**
+
+buildingblocks:
+  security:
+    csrf:
+      enabled: false
+
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    healthCheckUrlPath: /production-support/health
+    statusPageUrlPath: /production-support/info
+    nonSecurePort: ${server.port}
+    metadata-map:
+      public: true
+      role: live
+  client:
+    serviceUrl:
+      defaultZone: http://${REGISTRY_HOST:localhost}:${REGISTRY_PORT:8080}/registry/eureka/
+
+liquibase:
+  change-log: classpath:db/changelog/changelog-master.xml
+
+# Define app defaults
+endpoints:
+  jmx:
+    domain: ${spring.application.name}
+
+# Spring health monitoring
+management:
+  health:
+    jms:
+      enabled: false
+
+
+# Configure Internal JWT handler
+sso:
+  jwt:
+    internal:
+      #      producer:
+      signature:
+        key:
+          #          type: VALUE
+          #          value: JWTSecretKeyDontUseInProduction!
+          # ===============================================
+          #          For DEV landscape
+          type: ENV
+          value: SIG_SECRET_KEY
