@@ -8,7 +8,7 @@ public interface MessageService {
 
     Message getById(Integer id);
 
-    void saveMessage(Message message);
+    void saveMessage(String text, String chatName);
 
     List<Message> getAll();
 

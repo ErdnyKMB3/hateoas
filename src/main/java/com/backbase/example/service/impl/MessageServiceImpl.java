@@ -15,6 +15,7 @@ public class MessageServiceImpl implements MessageService {
 
     private final MessageRepository messageRepository;
     private final TextChatService textChatService;
+    private final String MESSAGE_DOESNT_EXIST = "message doesnt exist";
 
     public MessageServiceImpl(MessageRepository messageRepository, TextChatService textChatService) {
         this.messageRepository = messageRepository;
@@ -23,11 +24,15 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message getById(Integer id) {
-        return messageRepository.findByMessageId(id);
+        return messageRepository.findByMessageId(id).orElseThrow(() -> new RuntimeException(MESSAGE_DOESNT_EXIST));
     }
 
     @Override
-    public void saveMessage(Message message) {
+    public void saveMessage(String text, String chatName) {
+        TextChat chat = textChatService.getChatByName(chatName);
+        Message message = new Message();
+        message.setChat(chat);
+        message.setText(text);
         messageRepository.save(message);
     }
 

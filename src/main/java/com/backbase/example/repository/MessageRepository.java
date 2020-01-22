@@ -6,12 +6,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RepositoryDefinition(domainClass = Message.class, idClass = Integer.class)
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 
-    Message findByMessageId(Integer id);
+    Optional<Message> findByMessageId(Integer id);
 
     List<Message> findAllByChat(TextChat id);
 }

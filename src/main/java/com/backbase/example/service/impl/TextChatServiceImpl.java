@@ -12,6 +12,7 @@ import java.util.List;
 public class TextChatServiceImpl implements TextChatService {
 
     private final TextChatRepository textChatRepository;
+    private final String CHAT_DOESNT_EXIST = "chat doesnt exist";
 
     public TextChatServiceImpl(TextChatRepository textChatRepository) {
         this.textChatRepository = textChatRepository;
@@ -19,11 +20,23 @@ public class TextChatServiceImpl implements TextChatService {
 
     @Override
     public TextChat getChatById(Integer id) {
-        return textChatRepository.getTextChatByChatId(id);
+        return textChatRepository.getTextChatByChatId(id).orElseThrow(() -> new RuntimeException(CHAT_DOESNT_EXIST));
     }
 
     @Override
     public List<TextChat> getAllChats() {
         return textChatRepository.findAll();
+    }
+
+    @Override
+    public void saveChat(String name) {
+        TextChat textChat = new TextChat();
+        textChat.setName(name);
+        textChatRepository.save(textChat);
+    }
+
+    @Override
+    public TextChat getChatByName(String name) {
+        return textChatRepository.getTextChatByName(name).orElseThrow(() -> new RuntimeException(CHAT_DOESNT_EXIST));
     }
 }

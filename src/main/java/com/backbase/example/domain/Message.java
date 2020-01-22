@@ -3,9 +3,7 @@ package com.backbase.example.domain;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
@@ -14,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "MESSAGE")
-@RequiredArgsConstructor
+@NoArgsConstructor
 @JsonIdentityInfo(
         generator = ObjectIdGenerators.PropertyGenerator.class,
         property = "messageId"

@@ -10,4 +10,8 @@ public interface TextChatService {
 
     List<TextChat> getAllChats();
 
+    void saveChat(String name);
+
+    TextChat getChatByName(String name);
+
 }
