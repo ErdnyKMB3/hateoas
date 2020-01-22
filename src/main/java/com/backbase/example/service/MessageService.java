@@ -13,5 +13,5 @@ public interface MessageService {
     List<Message> getAll();
 
     List<Message> getMessagesForTextChat(Integer textChatId);
-    }
+
 }

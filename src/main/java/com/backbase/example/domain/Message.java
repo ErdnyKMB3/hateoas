@@ -1,25 +1,35 @@
 package com.backbase.example.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.persistence.*;
-import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
-@Table(name = "message")
+@Table(name = "MESSAGE")
 @RequiredArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "messageId"
+)
 public class Message extends ResourceSupport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(name = "message_id")
+    private Integer messageId;
 
     private String text;
 
-    @OneToMany
-    private List<Integer> textChatId;
+    @ManyToOne
+    @JoinColumn(name = "chatId", nullable = false)
+    private TextChat chat;
+
 }

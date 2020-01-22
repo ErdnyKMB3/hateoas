@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
         <changeSet id="1" author="admin">
             <createTable tableName="message">
-                <column autoIncrement="true" name="id" type="INT">
+                <column autoIncrement="true" name="message_id" type="INT">
                     <constraints primaryKey="true"/>
                 </column>
                 <column name="text" type="VARCHAR(255)"/>
+                <column name="chat_id" type="INT">
+                    <constraints foreignKeyName="messages_in_chat" references="chat(chat_id)"/>
+                </column>
             </createTable>
             <rollback>
                 <dropTable tableName="message"/>

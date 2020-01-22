@@ -5,9 +5,10 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-<changeSet id="2" author="admin">
+<changeSet id="3" author="admin">
     <insert tableName="message">
-        <column name="id" valueNumeric="1"/>
+        <column name="message_id" valueNumeric="1"/>
+        <column name="chat_id" value="1"/>
         <column name="text" value="hello from db"/>
     </insert>
 </changeSet>
