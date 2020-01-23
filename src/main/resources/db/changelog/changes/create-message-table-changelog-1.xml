@@ -6,7 +6,7 @@
 
         <changeSet id="1" author="admin">
             <createTable tableName="message">
-                <column autoIncrement="true" name="message_id" type="INT">
+                <column autoIncrement="true" startWith="1" name="message_id" type="INT">
                     <constraints primaryKey="true"/>
                 </column>
                 <column name="text" type="VARCHAR(255)"/>
